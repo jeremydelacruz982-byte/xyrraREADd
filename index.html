@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Petal Post — send a digibouquet & letter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Vollkorn:ital,wght@0,400;0,500;0,600;1,400&family=Petit+Formal+Script&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F3E6D3;
+    --surface:#FBF4E6;
+    --surface-2:#F0DFC3;
+    --ink:#3D2B1F;
+    --ink-soft:#6B5644;
+    --wine:#7A2E3B;
+    --wine-dark:#5A1F29;
+    --wine-tint:#F3D9DD;
+    --sienna:#A0623A;
+    --gold:#B8873B;
+    --stamp-border: rgba(160,98,58,0.55);
+    --shadow: 0 10px 30px rgba(74,52,40,0.16);
+    --shadow-sm: 0 4px 14px rgba(74,52,40,0.14);
+    --paper-1:#EFE0C4; --paper-2:#E3CFA4; --paper-3:#D9BE8F; --paper-ink:#3D2B1F;
+    --radius: 14px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#231712; --surface:#2E2019; --surface-2:#3A2A20;
+      --ink:#F1E4CE; --ink-soft:#CBB49A;
+      --wine:#E2929C; --wine-dark:#F2B4BC; --wine-tint:#4A2A30;
+      --sienna:#C68B5C; --gold:#D9A75C;
+      --stamp-border: rgba(198,139,92,0.55);
+      --shadow: 0 10px 30px rgba(0,0,0,0.45);
+      --shadow-sm: 0 4px 14px rgba(0,0,0,0.4);
+      --paper-1:#3A2C1E; --paper-2:#493623; --paper-3:#5A4128; --paper-ink:#F1E4CE;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#231712; --surface:#2E2019; --surface-2:#3A2A20;
+    --ink:#F1E4CE; --ink-soft:#CBB49A;
+    --wine:#E2929C; --wine-dark:#F2B4BC; --wine-tint:#4A2A30;
+    --sienna:#C68B5C; --gold:#D9A75C;
+    --stamp-border: rgba(198,139,92,0.55);
+    --shadow: 0 10px 30px rgba(0,0,0,0.45);
+    --shadow-sm: 0 4px 14px rgba(0,0,0,0.4);
+    --paper-1:#3A2C1E; --paper-2:#493623; --paper-3:#5A4128; --paper-ink:#F1E4CE;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Vollkorn', Georgia, 'Times New Roman', serif;
+    line-height:1.55;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', Georgia, serif;
+    font-weight:600;
+    color:var(--wine);
+    margin:0 0 0.4em;
+    line-height:1.15;
+  }
+  h1{font-size:1.9rem; font-style:italic; font-weight:500;}
+  h2{font-size:1.4rem;}
+  h3{font-size:1.08rem;}
+  p{margin:0 0 1em; max-width:62ch;}
+  .script{font-family:'Petit Formal Script', cursive; color:var(--sienna); font-size:1.3rem;}
+  a{color:var(--wine);}
+  button{font-family:inherit;}
+  :focus-visible{outline:2px solid var(--wine); outline-offset:2px;}
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  #app{max-width:560px; margin:0 auto; padding:28px 18px 60px;}
+  .brand{
+    display:flex; align-items:center; gap:10px; margin-bottom:22px; justify-content:center;
+  }
+  .brand-mark{font-size:1.5rem;}
+  .brand-name{font-family:'Fraunces',serif; font-weight:600; letter-spacing:0.02em; color:var(--wine); font-size:1.05rem;}
+
+  .card{
+    background:var(--surface);
+    border-radius:var(--radius);
+    padding:26px 22px;
+    box-shadow:var(--shadow);
+    border:1px solid var(--stamp-border);
+  }
+  .card + .card{margin-top:16px;}
+
+  /* ---------- Hero / envelope ---------- */
+  .envelope-wrap{ display:flex; justify-content:center; margin:6px 0 20px; }
+  .envelope{ width:220px; }
+  .seal-btn{
+    display:block; margin:0 auto; width:74px; height:74px; border-radius:50%;
+    background: radial-gradient(circle at 35% 30%, var(--wine-dark), var(--wine) 70%);
+    border:none; color:#fff; font-size:1.7rem; cursor:pointer;
+    box-shadow: var(--shadow-sm), inset 0 0 0 3px rgba(255,255,255,0.15);
+    animation: pulse 2.6s ease-in-out infinite;
+  }
+  .seal-btn:hover{filter:brightness(1.06);}
+  @keyframes pulse{ 0%,100%{transform:scale(1);} 50%{transform:scale(1.05);} }
+  .seal-caption{text-align:center; color:var(--ink-soft); font-size:0.92rem; margin-top:10px;}
+
+  .howto{list-style:none; margin:22px 0 0; padding:0; counter-reset:step;}
+  .howto li{
+    counter-increment:step; display:flex; gap:12px; align-items:flex-start;
+    padding:10px 0; border-top:1px solid var(--stamp-border);
+  }
+  .howto li:first-child{border-top:none;}
+  .howto li::before{
+    content:counter(step); flex:0 0 auto; width:26px; height:26px; border-radius:50%;
+    background:var(--wine-tint); color:var(--wine); font-family:'Fraunces',serif; font-weight:600;
+    display:flex; align-items:center; justify-content:center; font-size:0.85rem;
+  }
+  .howto p{margin:0; font-size:0.95rem;}
+  .howto strong{color:var(--ink);}
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    padding:13px 22px; border-radius:999px; border:none; cursor:pointer;
+    font-size:1rem; font-family:'Vollkorn',serif; font-weight:600;
+    background:var(--wine); color:#fff; transition:background 0.15s ease, transform 0.1s ease;
+  }
+  .btn:hover{background:var(--wine-dark);}
+  .btn:active{transform:scale(0.98);}
+  .btn:disabled{opacity:0.45; cursor:not-allowed;}
+  .btn-ghost{ background:transparent; color:var(--wine); border:1.5px solid var(--wine); }
+  .btn-ghost:hover{background:var(--wine-tint);}
+  .btn-block{width:100%;}
+  .btn-row{display:flex; gap:10px; margin-top:22px;}
+  .btn-row .btn{flex:1;}
+
+  /* ---------- Stepper ---------- */
+  .stepper{display:flex; gap:4px; margin-bottom:20px;}
+  .stepper .dot-wrap{flex:1; text-align:center;}
+  .stepper .dot{
+    width:9px; height:9px; border-radius:50%; margin:0 auto 6px; background:var(--surface-2);
+    border:1.5px solid var(--stamp-border);
+  }
+  .stepper .dot-wrap.done .dot{background:var(--sienna); border-color:var(--sienna);}
+  .stepper .dot-wrap.active .dot{background:var(--wine); border-color:var(--wine); width:11px; height:11px;}
+  .stepper .label{font-size:0.66rem; color:var(--ink-soft);}
+  .stepper .dot-wrap.active .label{color:var(--wine); font-weight:600;}
+
+  label{display:block; font-size:0.92rem; color:var(--ink-soft); margin-bottom:6px;}
+  input[type=text], textarea{
+    width:100%; border:1.5px solid var(--stamp-border); background:var(--surface-2);
+    color:var(--ink); border-radius:10px; padding:12px 13px; font-family:inherit; font-size:1rem;
+  }
+  input[type=text]:focus, textarea:focus{border-color:var(--wine);}
+  .field{margin-bottom:18px;}
+  .hint{font-size:0.82rem; color:var(--ink-soft); margin-top:6px;}
+
+  /* ---------- Flower stamps ---------- */
+  .flower-grid{
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(108px,1fr)); gap:10px; margin:14px 0;
+  }
+  .stamp{
+    border:2.5px dashed var(--stamp-border); border-radius:10px; padding:10px 8px;
+    background:var(--surface-2); text-align:center;
+  }
+  .stamp svg{width:52px; height:68px;}
+  .stamp .fname{font-size:0.85rem; margin:4px 0 8px; color:var(--ink);}
+  .qty{display:flex; align-items:center; justify-content:center; gap:8px;}
+  .qty button{
+    width:26px; height:26px; border-radius:50%; border:1.5px solid var(--wine); background:transparent;
+    color:var(--wine); font-size:1rem; line-height:1; cursor:pointer;
+  }
+  .qty button:disabled{opacity:0.3; cursor:not-allowed;}
+  .qty .count{min-width:16px; font-weight:600;}
+  .total-line{font-size:0.88rem; color:var(--ink-soft); margin:4px 0 2px; text-align:center;}
+
+  /* ---------- Bouquet preview ---------- */
+  .bouquet-stage{
+    position:relative; height:230px; margin:14px auto 6px; max-width:260px; overflow:visible;
+  }
+  .stem{position:absolute; bottom:70px;}
+  .stem svg{display:block; filter:drop-shadow(0 3px 4px rgba(0,0,0,0.15));}
+  .wrap-paper{
+    position:absolute; bottom:0; left:50%; transform:translateX(-50%);
+    width:210px; height:100px;
+    background:linear-gradient(135deg, var(--sienna) 0%, #CBA876 45%, var(--sienna) 100%);
+    clip-path:polygon(50% 0%, 96% 100%, 4% 100%);
+  }
+  .wrap-ribbon{
+    position:absolute; bottom:0; left:50%; transform:translateX(-50%);
+    width:210px; height:100px; clip-path:polygon(50% 0%, 96% 100%, 4% 100%); pointer-events:none;
+  }
+  .wrap-ribbon::before{
+    content:''; position:absolute; top:38%; left:0; right:0; height:12px; background:var(--wine);
+  }
+  .wrap-ribbon::after{
+    content:''; position:absolute; top:31%; left:50%; width:26px; height:26px;
+    background:var(--wine); border-radius:3px; transform:translateX(-50%) rotate(45deg);
+  }
+  .empty-stage{ text-align:center; color:var(--ink-soft); font-size:0.9rem; padding-top:70px; }
+
+  /* ---------- Photos & music (create) ---------- */
+  .media-grid{display:flex; flex-wrap:wrap; gap:10px; margin:14px 0;}
+  .media-thumb{position:relative; width:92px; height:92px; border-radius:8px; overflow:hidden; border:1.5px solid var(--stamp-border); flex:0 0 auto;}
+  .media-thumb img{width:100%; height:100%; object-fit:cover; display:block;}
+  .thumb-remove{
+    position:absolute; top:3px; right:3px; width:20px; height:20px; border-radius:50%; border:none;
+    background:rgba(61,43,31,0.72); color:#fff; font-size:0.85rem; cursor:pointer; line-height:1; padding:0;
+  }
+  .media-add{
+    width:92px; height:92px; border:2.5px dashed var(--stamp-border); border-radius:8px; flex:0 0 auto;
+    display:flex; align-items:center; justify-content:center; text-align:center; font-size:0.76rem;
+    color:var(--ink-soft); cursor:pointer; padding:4px; position:relative;
+  }
+  .media-add:hover{border-color:var(--wine); color:var(--wine);}
+  .media-add input{position:absolute; inset:0; opacity:0; cursor:pointer;}
+
+  .audio-row{
+    display:flex; align-items:center; gap:10px; border:1.5px solid var(--stamp-border); border-radius:10px;
+    padding:10px 12px; margin-bottom:10px; background:var(--surface-2);
+  }
+  .audio-row .audio-label{font-size:0.86rem; color:var(--ink); flex:0 0 auto; min-width:56px;}
+  .audio-row audio{flex:1; height:32px; min-width:0;}
+  .audio-remove{
+    width:24px; height:24px; border-radius:50%; border:1.5px solid var(--wine); background:transparent;
+    color:var(--wine); cursor:pointer; flex:0 0 auto; font-size:0.85rem; line-height:1;
+  }
+  .audio-add{
+    display:flex; align-items:center; justify-content:center; gap:8px; border:2.5px dashed var(--stamp-border);
+    border-radius:10px; padding:16px; color:var(--ink-soft); cursor:pointer; font-size:0.9rem; position:relative;
+  }
+  .audio-add:hover{border-color:var(--wine); color:var(--wine);}
+  .audio-add input{position:absolute; inset:0; opacity:0; cursor:pointer;}
+  .size-note{font-size:0.8rem; color:var(--ink-soft); margin-top:10px; text-align:center;}
+
+  .gallery{display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin:6px 0 18px;}
+  .polaroid{background:#fdfaf4; padding:7px 7px 16px; border-radius:2px; box-shadow:var(--shadow-sm);}
+  .polaroid img{width:96px; height:96px; object-fit:cover; display:block; border-radius:1px;}
+  .polaroid:nth-child(odd){transform:rotate(-4deg);}
+  .polaroid:nth-child(even){transform:rotate(3deg);}
+  .attached-music{margin-top:16px;}
+  .attached-music .audio-row{background:var(--surface);}
+
+  /* ---------- Letter ---------- */
+  .chips{display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 4px;}
+  .chip{
+    border:1.5px solid var(--sienna); color:var(--sienna); background:transparent; border-radius:999px;
+    padding:6px 12px; font-size:0.82rem; cursor:pointer; font-family:'Vollkorn',serif;
+  }
+  .chip:hover{background:var(--wine-tint); border-color:var(--wine); color:var(--wine);}
+  .chip.selected{background:var(--wine); border-color:var(--wine); color:#fff;}
+
+  .letter-paper{
+    position:relative; border-radius:6px; padding:22px 20px;
+    color:var(--paper-ink);
+    background:
+      radial-gradient(circle at 15% 20%, rgba(0,0,0,0.05), transparent 40%),
+      radial-gradient(circle at 85% 75%, rgba(0,0,0,0.06), transparent 45%),
+      linear-gradient(160deg, var(--paper-1), var(--paper-2) 55%, var(--paper-3));
+    border:1px solid rgba(74,52,40,0.35);
+    box-shadow: inset 0 0 30px rgba(74,52,40,0.12), var(--shadow-sm);
+  }
+  .letter-paper textarea{
+    background:transparent; border:none; color:var(--paper-ink); font-family:'Vollkorn',serif; font-style:italic;
+    font-size:1.02rem; min-height:170px; resize:vertical; padding:0;
+  }
+  .letter-paper textarea:focus{outline:none;}
+  .letter-corner{position:absolute; width:26px; height:26px; opacity:0.55;}
+  .letter-corner.tl{top:8px; left:8px; border-top:2px solid var(--gold); border-left:2px solid var(--gold);}
+  .letter-corner.br{bottom:8px; right:8px; border-bottom:2px solid var(--gold); border-right:2px solid var(--gold);}
+  .charcount{text-align:right; font-size:0.78rem; color:var(--ink-soft); margin-top:6px;}
+  .letter-signature{font-family:'Petit Formal Script',cursive; font-size:1.4rem; color:var(--paper-ink); margin-top:14px; text-align:right;}
+  .letter-static{white-space:pre-wrap; font-style:italic; font-family:'Vollkorn',serif; font-size:1.02rem;}
+
+  /* ---------- Review ---------- */
+  .summary-row{display:flex; justify-content:space-between; gap:10px; padding:8px 0; border-top:1px solid var(--stamp-border); font-size:0.92rem;}
+  .summary-row:first-child{border-top:none;}
+  .summary-row .k{color:var(--ink-soft);}
+  .agreement{
+    background:var(--surface-2); border-radius:10px; padding:14px 16px; font-size:0.9rem; color:var(--ink-soft);
+    margin:16px 0;
+  }
+  .agree-check{display:flex; gap:10px; align-items:flex-start; margin-top:10px; cursor:pointer;}
+  .agree-check input{margin-top:3px;}
+  .agree-check span{font-size:0.92rem; color:var(--ink);}
+
+  /* ---------- Result / link ---------- */
+  .link-box{display:flex; gap:8px; margin:14px 0;}
+  .link-box input{background:var(--surface-2); font-family:monospace; font-size:0.82rem;}
+  .warn{
+    background:var(--wine-tint); color:var(--wine-dark); border-radius:10px; padding:12px 14px; font-size:0.88rem;
+    margin:14px 0;
+  }
+  :root[data-theme="dark"] .warn, :root:not([data-theme="light"]) .warn{color:var(--ink);}
+
+  /* ---------- Receiving view ---------- */
+  .to-line{text-align:center; margin-bottom:6px;}
+  .to-line .script{font-size:1.6rem;}
+  .from-line{text-align:center; color:var(--ink-soft); font-size:0.92rem; margin-bottom:18px;}
+  .center{text-align:center;}
+  .footnote{text-align:center; font-size:0.78rem; color:var(--ink-soft); margin-top:26px; line-height:1.6;}
+  .divider{border:none; border-top:1px solid var(--stamp-border); margin:24px 0;}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ============ flower artwork ============ */
+  var STEM = '<line x1="50" y1="138" x2="50" y2="95" stroke="#6E8452" stroke-width="4" stroke-linecap="round"/><path d="M50,116 C38,111 30,117 27,129" fill="none" stroke="#6E8452" stroke-width="3" stroke-linecap="round"/>';
+
+  function ellipsePetal(angle,w,h,color,cx,cy){ cx=cx||50; cy=cy||55; return '<ellipse cx="'+cx+'" cy="'+(cy-h/2)+'" rx="'+w+'" ry="'+(h/2)+'" fill="'+color+'" transform="rotate('+angle+' '+cx+' '+cy+')"/>'; }
+  function pointedPetal(angle,w,h,color,cx,cy){ cx=cx||50; cy=cy||55; var tipY=cy-h, baseY=cy-h*0.3; return '<path d="M'+cx+','+cy+' L'+(cx-w)+','+baseY+' L'+cx+','+tipY+' L'+(cx+w)+','+baseY+' Z" fill="'+color+'" transform="rotate('+angle+' '+cx+' '+cy+')"/>'; }
+
+  function radialFlower(o){
+    var s='', i, a;
+    for(i=0;i<o.petals;i++){ a=i*(360/o.petals); s += o.pointed ? pointedPetal(a,o.petalW,o.petalH,o.color) : ellipsePetal(a,o.petalW,o.petalH,o.color); }
+    s += '<circle cx="50" cy="55" r="'+o.centerR+'" fill="'+o.centerColor+'"/>';
+    return s+STEM;
+  }
+  function layeredFlower(layers,centerColor,centerR){
+    var s='';
+    layers.forEach(function(L){ var off=L.offset||0; for(var i=0;i<L.petals;i++){ var a=i*(360/L.petals)+off; s+=ellipsePetal(a,L.petalW,L.petalH,L.color); } });
+    s += '<circle cx="50" cy="55" r="'+centerR+'" fill="'+centerColor+'"/>';
+    return s+STEM;
+  }
+  function lilacFlower(){
+    var s='', positions=[[50,28],[38,40],[62,40],[30,55],[50,52],[70,55],[42,68],[58,68]];
+    positions.forEach(function(pos,idx){
+      var x=pos[0], y=pos[1], size=6+(idx%3);
+      for(var p=0;p<5;p++){ var a=p*72; s+='<ellipse cx="'+x+'" cy="'+(y-size)+'" rx="'+(size*0.5)+'" ry="'+size+'" fill="#B79FCB" transform="rotate('+a+' '+x+' '+y+')"/>'; }
+      s+='<circle cx="'+x+'" cy="'+y+'" r="'+(size*0.35)+'" fill="#6F5288"/>';
+    });
+    return s+STEM;
+  }
+  function lavenderFlower(){
+    var s='';
+    for(var y=18;y<78;y+=7){ s+='<ellipse cx="46" cy="'+y+'" rx="4" ry="5" fill="#8A6FAE"/><ellipse cx="54" cy="'+(y+3)+'" rx="4" ry="5" fill="#7C6199"/>'; }
+    return s+STEM;
+  }
+  function roseFlower(){
+    return '<path d="M50,80 C20,75 15,45 32,25 C45,10 70,12 78,30 C86,48 72,68 52,62" fill="#8C1F3B"/>'+
+    '<path d="M50,74 C30,68 28,48 40,34 C50,24 66,26 70,38 C74,50 62,60 50,56" fill="#B33552"/>'+
+    '<path d="M50,66 C38,62 38,50 46,42 C52,37 60,40 60,47 C60,54 54,58 50,56" fill="#D65C77"/>'+
+    '<path d="M20,78 C15,68 20,60 28,58 L34,68 Z" fill="#5F7A4A"/>'+
+    '<path d="M80,78 C85,68 80,60 72,58 L66,68 Z" fill="#5F7A4A"/>'+STEM;
+  }
+  function tulipFlower(){
+    return '<path d="M50,88 C35,88 30,72 32,56 C33,46 40,36 40,26 C40,21 45,16 50,16 C55,16 60,21 60,26 C60,36 67,46 68,56 C70,72 65,88 50,88 Z" fill="#E86A80"/>'+
+    '<path d="M50,88 C42,88 38,76 40,62 C41,52 46,42 46,29 C46,25 48,21 50,21 Z" fill="#D6425B"/>'+STEM;
+  }
+  function orchidFlower(){
+    return '<ellipse cx="50" cy="30" rx="10" ry="20" fill="#C48FCB"/>'+
+    '<ellipse cx="50" cy="30" rx="10" ry="20" fill="#C48FCB" transform="rotate(120 50 55)"/>'+
+    '<ellipse cx="50" cy="30" rx="10" ry="20" fill="#C48FCB" transform="rotate(240 50 55)"/>'+
+    '<path d="M50,55 C40,64 40,78 50,84 C60,78 60,64 50,55 Z" fill="#8E4585"/>'+
+    '<circle cx="50" cy="55" r="6" fill="#5B3358"/>'+STEM;
+  }
+
+  var FLOWERS = {
+    daisy:      { name:"Daisy",      art: radialFlower({petals:14,petalW:6,petalH:34,color:"#FFFDF6",centerColor:"#E8A33D",centerR:11}) },
+    sunflower:  { name:"Sunflower",  art: radialFlower({petals:16,petalW:7,petalH:32,color:"#E7A62B",centerColor:"#5B3A21",centerR:13}) },
+    peony:      { name:"Peony",      art: layeredFlower([{petals:10,color:"#F2B8C6",petalW:9,petalH:30},{petals:10,color:"#E8A0AE",petalW:8,petalH:24,offset:18},{petals:8,color:"#D6748A",petalW:7,petalH:16,offset:36}],"#B75367",7) },
+    carnation:  { name:"Carnation",  art: layeredFlower([{petals:16,color:"#E88CA6",petalW:5,petalH:28},{petals:16,color:"#D14F72",petalW:4,petalH:20,offset:11.25}],"#9C3B57",6) },
+    rose:       { name:"Rose",       art: roseFlower() },
+    tulip:      { name:"Tulip",      art: tulipFlower() },
+    lavender:   { name:"Lavender",   art: lavenderFlower() },
+    orchid:     { name:"Orchid",     art: orchidFlower() },
+    dahlia:     { name:"Dahlia",     art: radialFlower({petals:16,petalW:5,petalH:32,color:"#E2703A",centerColor:"#7A2E1D",centerR:8,pointed:true}) },
+    lilac:      { name:"Lilac",      art: lilacFlower() }
+  };
+  var FLOWER_ORDER = ["daisy","lilac","sunflower","peony","carnation","rose","tulip","lavender","orchid","dahlia"];
+  var MAX_PER_TYPE = 4, MAX_TOTAL = 12;
+  var MAX_IMAGES = 3, MAX_AUDIO = 5;
+  var MAX_AUDIO_BYTES = 1*1024*1024;
+
+  function flowerSVG(id, size){
+    size = size || 60;
+    return '<svg viewBox="0 0 100 140" width="'+size+'" height="'+(size*1.4)+'" xmlns="http://www.w3.org/2000/svg">'+FLOWERS[id].art+'</svg>';
+  }
+
+  /* ============ ready-made copy ============ */
+  var LETTER_STARTERS = [
+    "My dearest {name},",
+    "To the one who makes my heart skip,",
+    "Happy Valentine's Day, {name}.",
+    "There's something I've been meaning to tell you.",
+    "{name}, roses are red, but you outshine them all.",
+    "Every love letter should start with the truth, so here it is:"
+  ];
+  var REPLY_CHIPS = [
+    "I love it, thank you.",
+    "This made my whole month.",
+    "You always know what to say.",
+    "Can't stop smiling right now.",
+    "Right back at you.",
+    "Best surprise I've had in a while.",
+    "Speechless, in a good way."
+  ];
+
+  /* ============ state ============ */
+  var state = {
+    screen: "hero",
+    recipientName: "",
+    senderName: "",
+    flowers: {},
+    images: [],
+    audios: [],
+    letter: "",
+    agreed: false,
+    generatedLink: "",
+    incoming: null,
+    envelopeOpen: false,
+    letterOpen: false,
+    replyText: "",
+    replyName: "",
+    replyLink: ""
+  };
+
+  /* ============ helpers ============ */
+  function esc(str){
+    return String(str||"").replace(/[&<>"']/g, function(c){
+      return ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c];
+    });
+  }
+  function encodeData(obj){ return btoa(unescape(encodeURIComponent(JSON.stringify(obj)))); }
+  function decodeData(str){ try{ return JSON.parse(decodeURIComponent(escape(atob(str)))); }catch(e){ return null; } }
+  function totalStems(){ var t=0; for(var k in state.flowers){ t += state.flowers[k]||0; } return t; }
+  function baseUrl(){ return location.origin + location.pathname; }
+  function formatDate(ts){
+    try{ return new Date(ts).toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'}); }catch(e){ return ""; }
+  }
+  function formatBytes(n){
+    if(n<1024) return n+" B";
+    if(n<1024*1024) return (n/1024).toFixed(0)+" KB";
+    return (n/(1024*1024)).toFixed(1)+" MB";
+  }
+  function approxLinkSize(){
+    var n = state.letter.length + 200;
+    state.images.forEach(function(i){ n+=i.length; });
+    state.audios.forEach(function(a){ n+=a.length; });
+    return Math.round(n*1.4);
+  }
+
+  function fileToResizedDataURL(file, maxDim, quality, cb){
+    var reader = new FileReader();
+    reader.onload = function(e){
+      var img = new Image();
+      img.onload = function(){
+        var w = img.width, h = img.height;
+        var scale = Math.min(1, maxDim/Math.max(w,h));
+        var cw = Math.max(1, Math.round(w*scale)), ch = Math.max(1, Math.round(h*scale));
+        var canvas = document.createElement("canvas");
+        canvas.width = cw; canvas.height = ch;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, cw, ch);
+        var q = quality, dataUrl = canvas.toDataURL("image/jpeg", q), tries = 0;
+        while(dataUrl.length > 220000 && q > 0.3 && tries < 6){ q -= 0.1; dataUrl = canvas.toDataURL("image/jpeg", q); tries++; }
+        cb(dataUrl);
+      };
+      img.onerror = function(){ cb(null); };
+      img.src = e.target.result;
+    };
+    reader.onerror = function(){ cb(null); };
+    reader.readAsDataURL(file);
+  }
+  function handleAudioFile(file, cb){
+    if(file.size > MAX_AUDIO_BYTES){
+      cb(null, "That clip is a bit large for a shareable link \u2014 try something under 1MB (roughly 15\u201320 seconds) so the link stays easy to send.");
+      return;
+    }
+    var reader = new FileReader();
+    reader.onload = function(e){ cb(e.target.result, null); };
+    reader.onerror = function(){ cb(null, "Couldn't read that file \u2014 try another one."); };
+    reader.readAsDataURL(file);
+  }
+
+  function stemList(flowersObj){
+    var list = [];
+    FLOWER_ORDER.forEach(function(id){
+      var c = flowersObj[id]||0;
+      for(var i=0;i<c;i++) list.push(id);
+    });
+    return list;
+  }
+
+  function renderBouquetStage(flowersObj){
+    var list = stemList(flowersObj);
+    if(list.length===0){
+      return '<div class="bouquet-stage"><div class="empty-stage">Choose flowers below and your bouquet will take shape here.</div></div>';
+    }
+    var n = list.length;
+    var html = '<div class="bouquet-stage">';
+    list.forEach(function(id, i){
+      var x = n<=1 ? 88 : (i/(n-1))*176;
+      var centerBias = Math.abs(x-88)/88;
+      var y = 60 + centerBias*36 + ((i%2===0)?0:14);
+      var rot = ((x-88)/88)*16;
+      var z = 100 - Math.round(centerBias*50);
+      html += '<div class="stem" style="left:'+x+'px; bottom:'+ (70+y-60) +'px; transform:rotate('+rot.toFixed(1)+'deg); z-index:'+z+';">'+flowerSVG(id,46)+'</div>';
+    });
+    html += '<div class="wrap-paper"></div><div class="wrap-ribbon"></div></div>';
+    return html;
+  }
+
+  function renderGallery(images){
+    if(!images || !images.length) return "";
+    var html = '<div class="gallery">';
+    images.forEach(function(src){ html += '<div class="polaroid"><img src="'+src+'" alt="A photo included with the bouquet"></div>'; });
+    return html+'</div>';
+  }
+
+  function renderAudioList(list, opts){
+    opts = opts || {};
+    if(!list || !list.length) return "";
+    var html = '';
+    list.forEach(function(src, i){
+      html += '<div class="audio-row"><span class="audio-label">'+ (opts.labelPrefix||"Track") +' '+(i+1)+'</span><audio controls src="'+src+'"></audio>' +
+        (opts.removable ? '<button type="button" class="audio-remove" data-action="remove-audio" data-idx="'+i+'" aria-label="Remove track">&times;</button>' : '') +
+      '</div>';
+    });
+    return html;
+  }
+
+  /* ============ rendering ============ */
+  var app = document.getElementById("app");
+
+  function brand(){
+    return '<div class="brand"><span class="brand-mark">&#128140;</span><span class="brand-name">Petal Post</span></div>';
+  }
+
+  var STEP_LABELS = ["Recipient","Bouquet","Photos","Music","Letter","Review"];
+
+  function stepper(current){
+    var html = '<div class="stepper">';
+    STEP_LABELS.forEach(function(lab, i){
+      var n = i+1;
+      var cls = n<current ? "done" : (n===current ? "active" : "");
+      html += '<div class="dot-wrap '+cls+'"><div class="dot"></div><div class="label">'+lab+'</div></div>';
+    });
+    return html+'</div>';
+  }
+
+  function canProceedFrom(step){
+    if(step===1) return state.recipientName.trim().length>0;
+    if(step===2) return totalStems()>0;
+    if(step===5) return state.letter.trim().length>=5;
+    return true;
+  }
+
+  function navBtn(step, label, primary){
+    var ok = canProceedFrom(step);
+    var disabled = step ? !ok : false;
+    return '<button class="btn'+(primary?"":" btn-ghost")+'" data-action="goto" data-step="'+step+'" '+(disabled?"disabled":"")+'>'+label+'</button>';
+  }
+
+  function render(){
+    var s = state.screen;
+    if(s==="hero") return renderHero();
+    if(s==="step1") return renderStep1();
+    if(s==="step2") return renderStep2();
+    if(s==="step3") return renderStep3();
+    if(s==="step4") return renderStep4();
+    if(s==="step5") return renderStep5();
+    if(s==="step6") return renderStep6();
+    if(s==="result") return renderResult();
+    if(s==="receive") return renderReceive();
+    if(s==="receiveReply") return renderReceiveReply();
+    return renderHero();
+  }
+
+  function paint(){ app.innerHTML = render(); }
+
+  function renderHero(){
+    return brand() +
+    '<div class="card">' +
+      '<div class="envelope-wrap">'+envelopeArt()+'</div>' +
+      '<h1 class="center">A digibouquet, sealed just for one person</h1>' +
+      '<p class="center" style="margin:0 auto 18px;">Build a bouquet from ten real flowers, add a few photos or some music, and write a letter on vintage paper. One private link, and nothing saved \u2014 only the two of you will ever hold it.</p>' +
+      '<button class="seal-btn" data-action="start" aria-label="Break the seal to begin">&#10084;</button>' +
+      '<div class="seal-caption">Break the seal to begin</div>' +
+      '<ol class="howto">' +
+        '<li><p><strong>Name who it\'s for.</strong> One bouquet, one recipient.</p></li>' +
+        '<li><p><strong>Pick your flowers.</strong> Choose from ten, in any combination.</p></li>' +
+        '<li><p><strong>Add photos or music.</strong> Both optional, both yours to skip.</p></li>' +
+        '<li><p><strong>Write your letter.</strong> On paper aged the old-fashioned way.</p></li>' +
+        '<li><p><strong>Get your link.</strong> Send it yourself \u2014 we keep no copy.</p></li>' +
+      '</ol>' +
+    '</div>' +
+    '<p class="footnote">Already have a Petal Post link? Open it directly and it will unfold on its own.</p>';
+  }
+
+  function envelopeArt(){
+    return '<svg class="envelope" viewBox="0 0 220 150" xmlns="http://www.w3.org/2000/svg">'+
+      '<rect x="6" y="20" width="208" height="120" rx="6" fill="var(--surface-2)" stroke="var(--sienna)" stroke-width="2"/>'+
+      '<path d="M6,24 L110,100 L214,24" fill="none" stroke="var(--sienna)" stroke-width="2"/>'+
+      '<circle cx="110" cy="70" r="16" fill="var(--wine)"/>'+
+      '<path d="M110,62 C106,58 99,60 99,66 C99,72 110,78 110,78 C110,78 121,72 121,66 C121,60 114,58 110,62 Z" fill="#fff" opacity="0.85"/>'+
+    '</svg>';
+  }
+
+  function renderStep1(){
+    return brand() + stepper(1) +
+    '<div class="card">' +
+      '<h2>Who is this for?</h2>' +
+      '<p>Every bouquet on Petal Post is addressed to one person. Their name will greet them when the link opens.</p>' +
+      '<div class="field"><label for="f-recipient">Recipient\'s name</label>' +
+        '<input type="text" id="f-recipient" data-bind="recipientName" placeholder="e.g. Amara" value="'+esc(state.recipientName)+'" maxlength="40">' +
+      '</div>' +
+      '<div class="field"><label for="f-sender">Your name <span style="font-weight:400;">(optional \u2014 shown to them as who it\'s from)</span></label>' +
+        '<input type="text" id="f-sender" data-bind="senderName" placeholder="Leave blank to stay a secret admirer" value="'+esc(state.senderName)+'" maxlength="40">' +
+      '</div>' +
+      '<div class="btn-row">'+navBtn(2,"Choose the flowers",true)+'</div>' +
+    '</div>';
+  }
+
+  function renderStep2(){
+    var t = totalStems();
+    var grid = '<div class="flower-grid">';
+    FLOWER_ORDER.forEach(function(id){
+      var count = state.flowers[id]||0;
+      var atTypeMax = count>=MAX_PER_TYPE;
+      var atTotalMax = t>=MAX_TOTAL;
+      grid += '<div class="stamp">' + flowerSVG(id,52) +
+        '<div class="fname">'+FLOWERS[id].name+'</div>' +
+        '<div class="qty">' +
+          '<button data-action="qty-dec" data-id="'+id+'" '+(count<=0?"disabled":"")+' aria-label="Fewer '+FLOWERS[id].name+'">&minus;</button>' +
+          '<span class="count">'+count+'</span>' +
+          '<button data-action="qty-inc" data-id="'+id+'" '+((atTypeMax||atTotalMax)?"disabled":"")+' aria-label="More '+FLOWERS[id].name+'">+</button>' +
+        '</div>' +
+      '</div>';
+    });
+    grid += '</div>';
+    return brand() + stepper(2) +
+    '<div class="card">' +
+      '<h2>Choose your flowers</h2>' +
+      '<p>Mix and match up to '+MAX_TOTAL+' stems, ten kinds to choose from.</p>' +
+      renderBouquetStage(state.flowers) +
+      '<div class="total-line">'+t+' of '+MAX_TOTAL+' stems chosen</div>' +
+      grid +
+      '<div class="btn-row">'+navBtn(1,"Back")+navBtn(3,"Add photos",true)+'</div>' +
+      (t>0 ? "" : '<div class="hint" style="text-align:center;">Choose at least one flower to continue.</div>') +
+    '</div>';
+  }
+
+  function renderStep3(){
+    var thumbs = '';
+    state.images.forEach(function(src,i){
+      thumbs += '<div class="media-thumb"><img src="'+src+'" alt="Uploaded photo"><button type="button" class="thumb-remove" data-action="remove-image" data-idx="'+i+'" aria-label="Remove photo">&times;</button></div>';
+    });
+    var addTile = state.images.length<MAX_IMAGES ?
+      '<label class="media-add">Add photo<input type="file" accept="image/*" data-action="pick-image"></label>' : '';
+    return brand() + stepper(3) +
+    '<div class="card">' +
+      '<h2>Add a few photos</h2>' +
+      '<p>Optional \u2014 up to three pictures to send along with the bouquet. A memory together, or just a nice photo.</p>' +
+      '<div class="media-grid">'+thumbs+addTile+'</div>' +
+      '<p class="hint">Photos are resized automatically so the link stays a reasonable length.</p>' +
+      '<div class="btn-row">'+navBtn(2,"Back")+navBtn(4, state.images.length ? "Continue" : "Skip for now", true)+'</div>' +
+    '</div>';
+  }
+
+  function renderStep4(){
+    var rows = renderAudioList(state.audios, {removable:true});
+    var addTile = state.audios.length<MAX_AUDIO ?
+      '<label class="audio-add">+ Add a song or voice note<input type="file" accept="audio/*" data-action="pick-audio"></label>' : '';
+    return brand() + stepper(4) +
+    '<div class="card">' +
+      '<h2>Add some music</h2>' +
+      '<p>Optional \u2014 up to five short clips. Songs that mean something, or a quick voice note. Keep each under about 1MB (roughly 15\u201320 seconds) so the finished link stays easy to send.</p>' +
+      rows + addTile +
+      '<div class="btn-row">'+navBtn(3,"Back")+navBtn(5, state.audios.length ? "Continue" : "Skip for now", true)+'</div>' +
+    '</div>';
+  }
+
+  function renderStep5(){
+    var chips = '<div class="chips">';
+    LETTER_STARTERS.forEach(function(line, i){
+      var filled = line.replace("{name}", state.recipientName.trim()||"you");
+      chips += '<button type="button" class="chip" data-action="insert-line" data-idx="'+i+'">'+esc(filled)+'</button>';
+    });
+    chips += '</div>';
+    return brand() + stepper(5) +
+    '<div class="card">' +
+      '<h2>Write your letter</h2>' +
+      '<p>It will sit on aged paper of its own, just like a letter kept in a drawer for years. Tap a line below for a start, then make it yours.</p>' +
+      chips +
+      '<div class="letter-paper">' +
+        '<div class="letter-corner tl"></div><div class="letter-corner br"></div>' +
+        '<textarea id="f-letter" data-bind="letter" maxlength="900" placeholder="My dearest '+esc(state.recipientName.trim()||"\u2014")+',">'+esc(state.letter)+'</textarea>' +
+      '</div>' +
+      '<div class="charcount">'+state.letter.length+' / 900</div>' +
+      '<div class="btn-row">'+navBtn(4,"Back")+navBtn(6,"Review & send",true)+'</div>' +
+      (canProceedFrom(5) ? "" : '<div class="hint" style="text-align:center;">A few words are enough to continue.</div>') +
+    '</div>';
+  }
+
+  function renderStep6(){
+    var flowerSummary = FLOWER_ORDER.filter(function(id){ return (state.flowers[id]||0)>0; })
+      .map(function(id){ return state.flowers[id]+"x "+FLOWERS[id].name; }).join(", ");
+    var size = approxLinkSize();
+    return brand() + stepper(6) +
+    '<div class="card">' +
+      '<h2>Review before you seal it</h2>' +
+      '<div class="summary-row"><span class="k">For</span><span>'+esc(state.recipientName)+'</span></div>' +
+      '<div class="summary-row"><span class="k">From</span><span>'+esc(state.senderName || "A secret admirer")+'</span></div>' +
+      '<div class="summary-row"><span class="k">Bouquet</span><span>'+esc(flowerSummary)+'</span></div>' +
+      '<div class="summary-row"><span class="k">Photos</span><span>'+(state.images.length || "None")+'</span></div>' +
+      '<div class="summary-row"><span class="k">Music</span><span>'+(state.audios.length || "None")+'</span></div>' +
+      renderBouquetStage(state.flowers) +
+      renderGallery(state.images) +
+      renderAudioList(state.audios, {}) +
+      '<div class="letter-paper" style="margin-top:14px;"><div class="letter-corner tl"></div><div class="letter-corner br"></div><div class="letter-static">'+esc(state.letter)+'</div></div>' +
+      '<p class="size-note">Estimated link size: about '+formatBytes(size)+(size>3*1024*1024 ? " \u2014 that\u2019s on the larger side; fewer or shorter clips will make it easier to send." : ".")+'</p>' +
+      '<div class="agreement">' +
+        '<strong style="color:var(--ink);">Confidentiality, in plain terms.</strong><br>' +
+        'Petal Post has no database. This bouquet, its photos, its music, and the letter all live only inside the link you are about to generate. Only whoever holds that link \u2014 you and '+esc(state.recipientName||"your recipient")+' \u2014 can ever open it. Nothing is stored on any server, so we can\'t read it, recover it, or resend it for you.' +
+        '<label class="agree-check"><input type="checkbox" id="f-agree" '+(state.agreed?"checked":"")+'><span>I understand this link is the only copy, and I\'ll share it only with '+esc(state.recipientName||"the person it's for")+'.</span></label>' +
+      '</div>' +
+      '<div class="btn-row">'+navBtn(5,"Back")+'<button class="btn" data-action="generate" '+(state.agreed?"":"disabled")+'>Generate my link</button></div>' +
+    '</div>';
+  }
+
+  function renderResult(){
+    var extras = [];
+    if(state.images.length) extras.push(state.images.length+" photo"+(state.images.length>1?"s":""));
+    if(state.audios.length) extras.push(state.audios.length+" track"+(state.audios.length>1?"s":""));
+    return brand() +
+    '<div class="card center">' +
+      '<h2>Your link is ready</h2>' +
+      '<p>This is the only place this bouquet'+(extras.length?" \u2014 with "+extras.join(" and ")+" tucked inside":"")+' \u2014 exists. Copy it now and send it to '+esc(state.recipientName)+' yourself.</p>' +
+      '<div class="link-box"><input type="text" readonly id="f-link" value="'+esc(state.generatedLink)+'"><button class="btn" data-action="copy-link">Copy</button></div>' +
+      '<div class="warn">If you close this tab without sending the link, there is no way to get it back \u2014 Petal Post keeps no copy of its own.</div>' +
+      '<div class="btn-row">' +
+        '<button class="btn-ghost btn" data-action="preview-link">Preview it</button>' +
+        (navigator.share ? '<button class="btn" data-action="share-link" id="btn-share">Share</button>' : "") +
+      '</div>' +
+      '<p style="margin-top:18px;"><a href="#" data-action="restart">Start another bouquet</a></p>' +
+    '</div>';
+  }
+
+  function renderReceive(){
+    var d = state.incoming;
+    if(!state.envelopeOpen){
+      return brand() +
+      '<div class="card center">' +
+        '<div class="to-line"><span class="script">For '+esc(d.to)+'</span></div>' +
+        '<div class="from-line">Someone has sent you a digibouquet</div>' +
+        '<div class="envelope-wrap">'+envelopeArt()+'</div>' +
+        '<button class="seal-btn" data-action="open-envelope" aria-label="Break the seal">&#10084;</button>' +
+        '<div class="seal-caption">Break the seal to see what\'s inside</div>' +
+      '</div>';
+    }
+    var flowersObj = {};
+    (d.f||[]).forEach(function(item){ flowersObj[item.id]=item.n; });
+    var letterSection;
+    if(!state.letterOpen){
+      letterSection = '<div class="center" style="margin-top:8px;">' +
+        '<button class="seal-btn" data-action="open-letter" aria-label="Open the letter">&#10084;</button>' +
+        '<div class="seal-caption">Open the letter</div>' +
+      '</div>';
+    } else {
+      letterSection = '<div class="letter-paper" style="margin-top:14px;"><div class="letter-corner tl"></div><div class="letter-corner br"></div>' +
+        '<div class="letter-static">'+esc(d.m)+'</div>' +
+        '<div class="letter-signature">&mdash; '+esc(d.from || "A secret admirer")+'</div>' +
+      '</div>' +
+      (d.ts? '<p class="hint center" style="text-align:center;">Sent '+esc(formatDate(d.ts))+'</p>' : "") +
+      (d.snd && d.snd.length ? '<div class="attached-music"><h3>Sent along with the letter</h3>'+renderAudioList(d.snd,{})+'</div>' : "");
+    }
+    var replySection = "";
+    if(state.letterOpen){
+      if(state.replyLink){
+        replySection = '<hr class="divider"><h3>Your reply link</h3>' +
+          '<p>Copy this and send it back to '+esc(d.from||"them")+' yourself \u2014 Petal Post won\'t deliver it for you.</p>' +
+          '<div class="link-box"><input type="text" readonly id="f-reply-link" value="'+esc(state.replyLink)+'"><button class="btn" data-action="copy-reply-link">Copy</button></div>';
+      } else {
+        var chips = '<div class="chips">';
+        REPLY_CHIPS.forEach(function(line,i){
+          var sel = state.replyText===line ? "selected" : "";
+          chips += '<button type="button" class="chip '+sel+'" data-action="pick-reply" data-idx="'+i+'">'+esc(line)+'</button>';
+        });
+        chips += '</div>';
+        replySection = '<hr class="divider"><h3>Send something back</h3>' +
+          '<p>Pick a ready line or write your own \u2014 only '+esc(d.from||"the sender")+' will ever see it.</p>' +
+          chips +
+          '<div class="field"><label for="f-replytext">Your reply</label><textarea id="f-replytext" data-bind="replyText" maxlength="500" placeholder="Write your reply...">'+esc(state.replyText)+'</textarea></div>' +
+          '<div class="field"><label for="f-replyname">Your name <span style="font-weight:400;">(optional)</span></label><input type="text" id="f-replyname" data-bind="replyName" placeholder="Leave blank to stay anonymous" value="'+esc(state.replyName)+'" maxlength="40"></div>' +
+          '<button class="btn btn-block" data-action="send-reply" '+(state.replyText.trim().length>0?"":"disabled")+'>Create my reply link</button>';
+      }
+    }
+    return brand() +
+    '<div class="card">' +
+      '<div class="to-line center"><span class="script">For '+esc(d.to)+'</span></div>' +
+      (d.from? '<div class="from-line">From '+esc(d.from)+'</div>' : '<div class="from-line">From a secret admirer</div>') +
+      renderBouquetStage(flowersObj) +
+      renderGallery(d.img) +
+      letterSection +
+      replySection +
+    '</div>' +
+    '<p class="footnote">This page never saved what you just read \u2014 it was decoded from the link alone.</p>';
+  }
+
+  function renderReceiveReply(){
+    var d = state.incoming;
+    return brand() +
+    '<div class="card center">' +
+      '<h2>A reply has arrived</h2>' +
+      (d.forName? '<p class="from-line">In reply to the bouquet for '+esc(d.forName)+'</p>' : "") +
+      '<div class="letter-paper" style="margin-top:10px; text-align:left;"><div class="letter-corner tl"></div><div class="letter-corner br"></div>' +
+        '<div class="letter-static">'+esc(d.m)+'</div>' +
+        '<div class="letter-signature">&mdash; '+esc(d.from || "Someone who received it")+'</div>' +
+      '</div>' +
+      (d.ts? '<p class="hint">Sent '+esc(formatDate(d.ts))+'</p>' : "") +
+      '<div class="btn-row"><button class="btn btn-block" data-action="restart">Send your own bouquet</button></div>' +
+    '</div>';
+  }
+
+  /* ============ actions ============ */
+  function resetCreator(){
+    state.recipientName=""; state.senderName=""; state.flowers={}; state.images=[]; state.audios=[];
+    state.letter=""; state.agreed=false; state.generatedLink="";
+  }
+
+  app.addEventListener("click", function(e){
+    var t = e.target.closest("[data-action]");
+    if(!t) return;
+    var action = t.getAttribute("data-action");
+
+    if(action==="start"){ state.screen="step1"; paint(); return; }
+    if(action==="restart"){
+      e.preventDefault(); resetCreator(); state.incoming=null; state.envelopeOpen=false; state.letterOpen=false;
+      state.replyText=""; state.replyName=""; state.replyLink="";
+      history.replaceState(null,"",baseUrl()); state.screen="hero"; paint(); return;
+    }
+
+    if(action==="goto"){
+      var target = parseInt(t.getAttribute("data-step"),10);
+      var curNum = parseInt(String(state.screen).replace("step",""),10) || 1;
+      if(target>curNum && !canProceedFrom(curNum)) return;
+      state.screen = "step"+target;
+      paint();
+      return;
+    }
+
+    if(action==="qty-inc"){
+      var id=t.getAttribute("data-id");
+      var cur = state.flowers[id]||0;
+      if(cur<MAX_PER_TYPE && totalStems()<MAX_TOTAL){ state.flowers[id]=cur+1; paint(); }
+      return;
+    }
+    if(action==="qty-dec"){
+      var id2=t.getAttribute("data-id");
+      var cur2 = state.flowers[id2]||0;
+      if(cur2>0){ state.flowers[id2]=cur2-1; paint(); }
+      return;
+    }
+
+    if(action==="remove-image"){
+      var ii = parseInt(t.getAttribute("data-idx"),10);
+      state.images.splice(ii,1); paint(); return;
+    }
+    if(action==="remove-audio"){
+      var ai = parseInt(t.getAttribute("data-idx"),10);
+      state.audios.splice(ai,1); paint(); return;
+    }
+
+    if(action==="insert-line"){
+      var idx = parseInt(t.getAttribute("data-idx"),10);
+      var line = LETTER_STARTERS[idx].replace("{name}", state.recipientName.trim()||"you");
+      state.letter = state.letter ? (line + "\n\n" + state.letter) : (line + "\n\n");
+      paint();
+      var ta = document.getElementById("f-letter");
+      if(ta){ ta.focus(); ta.selectionStart = ta.selectionEnd = ta.value.length; }
+      return;
+    }
+
+    if(action==="generate"){
+      var flist = FLOWER_ORDER.filter(function(id){ return (state.flowers[id]||0)>0; })
+        .map(function(id){ return {id:id, n:state.flowers[id]}; });
+      var payload = {
+        t:"bouquet", to: state.recipientName.trim(), from: state.senderName.trim()||null,
+        f: flist, img: state.images.slice(0,MAX_IMAGES), snd: state.audios.slice(0,MAX_AUDIO),
+        m: state.letter.trim(), ts: Date.now()
+      };
+      state.generatedLink = baseUrl() + "#b=" + encodeData(payload);
+      state.screen = "result";
+      paint();
+      return;
+    }
+    if(action==="copy-link"){ copyField("f-link"); return; }
+    if(action==="preview-link"){ window.open(state.generatedLink, "_blank"); return; }
+    if(action==="share-link"){ if(navigator.share){ navigator.share({title:"A digibouquet for you", url: state.generatedLink}).catch(function(){}); } return; }
+
+    if(action==="open-envelope"){ state.envelopeOpen=true; paint(); return; }
+    if(action==="open-letter"){ state.letterOpen=true; paint(); return; }
+    if(action==="pick-reply"){
+      var idx2 = parseInt(t.getAttribute("data-idx"),10);
+      state.replyText = REPLY_CHIPS[idx2];
+      paint();
+      return;
+    }
+    if(action==="send-reply"){
+      var d = state.incoming;
+      var payload2 = { t:"reply", from: state.replyName.trim()||null, to: d.from||null, forName: d.to||null, m: state.replyText.trim(), ts: Date.now() };
+      state.replyLink = baseUrl() + "#r=" + encodeData(payload2);
+      paint();
+      return;
+    }
+    if(action==="copy-reply-link"){ copyField("f-reply-link"); return; }
+  });
+
+  app.addEventListener("input", function(e){
+    var el = e.target;
+    var bind = el.getAttribute && el.getAttribute("data-bind");
+    if(!bind) return;
+    state[bind] = el.value;
+    if(bind==="letter"){
+      var counter = el.closest(".card").querySelector(".charcount");
+      if(counter) counter.textContent = el.value.length + " / 900";
+      var nextBtn = document.querySelector('[data-action="goto"][data-step="6"]');
+      if(nextBtn) nextBtn.disabled = state.letter.trim().length<5;
+    }
+    if(bind==="recipientName"){
+      var nextBtn2 = document.querySelector('[data-action="goto"][data-step="2"]');
+      if(nextBtn2) nextBtn2.disabled = !state.recipientName.trim();
+    }
+    if(bind==="replyText"){
+      var sendBtn = document.querySelector('[data-action="send-reply"]');
+      if(sendBtn) sendBtn.disabled = !state.replyText.trim();
+      document.querySelectorAll(".chip.selected").forEach(function(c){ c.classList.remove("selected"); });
+    }
+  });
+
+  app.addEventListener("change", function(e){
+    if(e.target.id==="f-agree"){
+      state.agreed = e.target.checked;
+      var genBtn = document.querySelector('[data-action="generate"]');
+      if(genBtn) genBtn.disabled = !state.agreed;
+      return;
+    }
+    var act = e.target.getAttribute && e.target.getAttribute("data-action");
+    if(act==="pick-image"){
+      var file = e.target.files && e.target.files[0];
+      e.target.value = "";
+      if(!file || state.images.length>=MAX_IMAGES) return;
+      fileToResizedDataURL(file, 640, 0.72, function(dataUrl){
+        if(dataUrl){ state.images.push(dataUrl); paint(); }
+      });
+      return;
+    }
+    if(act==="pick-audio"){
+      var file2 = e.target.files && e.target.files[0];
+      e.target.value = "";
+      if(!file2 || state.audios.length>=MAX_AUDIO) return;
+      handleAudioFile(file2, function(dataUrl, err){
+        if(err){ alert(err); return; }
+        if(dataUrl){ state.audios.push(dataUrl); paint(); }
+      });
+      return;
+    }
+  });
+
+  function copyField(id){
+    var el = document.getElementById(id);
+    if(!el) return;
+    el.select(); el.setSelectionRange(0,99999);
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(el.value).then(function(){ flashCopied(id); }).catch(function(){ tryExec(); });
+    } else { tryExec(); }
+    function tryExec(){ try{ document.execCommand("copy"); flashCopied(id); }catch(e){} }
+  }
+  function flashCopied(id){
+    var btn = document.querySelector('[data-action="'+(id==="f-link"?"copy-link":"copy-reply-link")+'"]');
+    if(btn){ var old = btn.textContent; btn.textContent="Copied"; setTimeout(function(){ btn.textContent=old; }, 1600); }
+  }
+
+  /* ============ init ============ */
+  function init(){
+    var hash = location.hash;
+    if(hash.indexOf("#b=")===0){
+      var data = decodeData(hash.slice(3));
+      if(data && data.t==="bouquet" && data.to){ state.incoming=data; state.screen="receive"; paint(); return; }
+    }
+    if(hash.indexOf("#r=")===0){
+      var data2 = decodeData(hash.slice(3));
+      if(data2 && data2.t==="reply"){ state.incoming=data2; state.screen="receiveReply"; paint(); return; }
+    }
+    state.screen="hero";
+    paint();
+  }
+  init();
+})();
+</script>
+</body>
+</html>
